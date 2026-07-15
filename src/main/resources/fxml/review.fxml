@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlinefooddeliverysystem.controller.ReviewController">
+   <children>
+      <Label layoutX="61.0" layoutY="33.0" text="Order Delivered!">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Text layoutX="61.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thank you for ordering with us!">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Label layoutX="61.0" layoutY="128.0" text="Order # 0001">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="61.0" layoutY="159.0" text="Restaurant: Jollibee">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="61.0" layoutY="195.0" text="Rate your Experience" />
+      <ChoiceBox layoutX="61.0" layoutY="218.0" prefWidth="150.0" />
+      <Label layoutX="62.0" layoutY="259.0" text="Leave a Review" />
+      <TextArea layoutX="61.0" layoutY="292.0" prefHeight="218.0" prefWidth="670.0" text="Write your feedback here" />
+      <Button layoutX="89.0" layoutY="530.0" mnemonicParsing="false" onAction="#handleSubmit" text="Submit Review" />
+      <Button layoutX="602.0" layoutY="530.0" mnemonicParsing="false" onAction="#handleHome" text="Back to Home" />
+   </children>
+</AnchorPane>
