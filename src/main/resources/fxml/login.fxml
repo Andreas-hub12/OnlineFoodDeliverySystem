@@ -6,17 +6,20 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlinefooddeliverysystem.controller.LoginController">
+<AnchorPane prefHeight="401.0" prefWidth="605.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlinefooddeliverysystem.controller.LoginController">
    <children>
-      <Label layoutX="149.0" layoutY="77.0" text="Online Food Delivery System">
+      <Label layoutX="122.0" layoutY="97.0" text="Online Food Delivery System">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <TextField layoutX="202.0" layoutY="151.0" prefHeight="25.0" prefWidth="218.0" text="Email" />
-      <PasswordField layoutX="202.0" layoutY="188.0" prefHeight="25.0" prefWidth="218.0" text="Password" />
-      <Button layoutX="210.0" layoutY="235.0" mnemonicParsing="false" text="Register" />
-      <Button layoutX="359.0" layoutY="235.0" mnemonicParsing="false" onAction="#handleLogin" text="Login" />
+      <TextField fx:id="txtUsername" layoutX="201.0" layoutY="172.0" prefHeight="25.0" prefWidth="218.0" />
+      <PasswordField fx:id="txtPassword" layoutX="201.0" layoutY="208.0" prefHeight="25.0" prefWidth="218.0" />
+      <Button layoutX="213.0" layoutY="243.0" mnemonicParsing="false" onAction="#handleRegister" text="Register" />
+      <Button layoutX="351.0" layoutY="243.0" mnemonicParsing="false" onAction="#handleLogin" text="Login" />
+      <Text layoutX="135.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" />
+      <Text layoutX="135.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
    </children>
 </AnchorPane>

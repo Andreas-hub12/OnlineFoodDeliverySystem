@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlinefooddeliverysystem.controller.ManageFoodController">
+   <children>
+      <TextField fx:id="txtName" layoutX="152.0" layoutY="390.0" prefHeight="25.0" prefWidth="459.0" promptText="Food Name" />
+      <TextField fx:id="txtCategory" layoutX="152.0" layoutY="466.0" prefHeight="25.0" prefWidth="459.0" promptText="Category" />
+      <TextField fx:id="txtPrice" layoutX="152.0" layoutY="430.0" prefHeight="25.0" prefWidth="459.0" promptText="Price" />
+      <Button layoutX="185.0" layoutY="508.0" mnemonicParsing="false" onAction="#handleAdd" prefHeight="25.0" prefWidth="62.0" text="Add" />
+      <Button layoutX="514.0" layoutY="508.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="25.0" prefWidth="62.0" text="Back" />
+      <Button layoutX="350.0" layoutY="508.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="25.0" prefWidth="62.0" text="Delete" />
+      <Button layoutX="268.0" layoutY="508.0" mnemonicParsing="false" onAction="#handleUpdate" prefHeight="25.0" prefWidth="62.0" text="Update" />
+      <Button layoutX="431.0" layoutY="508.0" mnemonicParsing="false" onAction="#handleRefresh" prefHeight="25.0" prefWidth="62.0" text="Refresh" />
+      <Label layoutX="288.0" layoutY="28.0" text="Manage Food Items">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+       <TableView fx:id="tableFood" layoutX="61.0" layoutY="78.0"
+                  prefHeight="293.0" prefWidth="677.0">
+
+           <columns>
+
+               <TableColumn fx:id="colName"
+                            prefWidth="250.0"
+                            text="Food Name"/>
+
+               <TableColumn fx:id="colPrice"
+                            prefWidth="150.0"
+                            text="Price"/>
+
+               <TableColumn fx:id="colCategory"
+                            prefWidth="250.0"
+                            text="Category"/>
+
+           </columns>
+
+       </TableView>
+   </children>
+</AnchorPane>
