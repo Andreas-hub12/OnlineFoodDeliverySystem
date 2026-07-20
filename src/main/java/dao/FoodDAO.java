@@ -5,105 +5,170 @@ import com.example.onlinefooddeliverysystem.model.FoodItem;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 public class FoodDAO {
 
-    public ArrayList<FoodItem> getAllFood() {
 
-        ArrayList<FoodItem> list = new ArrayList<>();
+    public List<String> getAllRestaurants() {
 
-        try {
+        Set<String> restaurants = new LinkedHashSet<>();
 
-            Connection conn = DatabaseConnection.getConnection();
 
-            String sql = "SELECT * FROM food_items";
+        restaurants.add("Jollibee");
+        restaurants.add("McDonald's");
+        restaurants.add("KFC");
+        restaurants.add("Chowking");
+        restaurants.add("Mang Inasal");
+        restaurants.add("Leylam");
 
-            PreparedStatement pst = conn.prepareStatement(sql);
+        String query = "SELECT DISTINCT restaurant_name FROM food_items WHERE restaurant_name IS NOT NULL AND restaurant_name != ''";
 
-            ResultSet rs = pst.executeQuery();
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
 
             while (rs.next()) {
+                String dbRestaurant = rs.getString("restaurant_name");
+                if (dbRestaurant != null && !dbRestaurant.trim().isEmpty()) {
+                    restaurants.add(dbRestaurant.trim());
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error fetching restaurants: " + e.getMessage());
+        }
 
+        return new ArrayList<>(restaurants);
+    }
+
+
+    public List<FoodItem> getFoodByRestaurant(String restaurantName) {
+        List<FoodItem> items = new ArrayList<>();
+        String query = "SELECT * FROM food_items WHERE LOWER(restaurant_name) = LOWER(?)";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setString(1, restaurantName);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
                 FoodItem item = new FoodItem(
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getDouble("price"),
-                        rs.getString("category")
+                        rs.getString("category"),
+                        rs.getString("restaurant_name")
                 );
-
-                list.add(item);
+                items.add(item);
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Error fetching food by restaurant: " + e.getMessage());
         }
 
-        return list;
+        return items;
     }
 
-    public void addFood(String name, double price, String category) {
 
-        try {
+    public List<FoodItem> getAllFood() {
+        List<FoodItem> items = new ArrayList<>();
+        String query = "SELECT * FROM food_items";
 
-            Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
 
-            String sql = "INSERT INTO food_items(name,price,category) VALUES(?,?,?)";
-
-            PreparedStatement pst = conn.prepareStatement(sql);
-
-            pst.setString(1, name);
-            pst.setDouble(2, price);
-            pst.setString(3, category);
-
-            pst.executeUpdate();
-
-        } catch (Exception e) {
-            e.printStackTrace();
+            while (rs.next()) {
+                FoodItem item = new FoodItem(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getDouble("price"),
+                        rs.getString("category"),
+                        rs.getString("restaurant_name")
+                );
+                items.add(item);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error fetching all food items: " + e.getMessage());
         }
 
+        return items;
     }
 
-    public void updateFood(int id, String name, double price, String category) {
 
-        try {
+    public boolean addFood(String name, double price, String category) {
+        return addFood(name, price, category, "Jollibee");
+    }
 
-            Connection conn = DatabaseConnection.getConnection();
 
-            String sql = "UPDATE food_items SET name=?, price=?, category=? WHERE id=?";
+    public boolean addFood(String name, double price, String category, String restaurantName) {
+        String query = "INSERT INTO food_items (name, price, category, restaurant_name) VALUES (?, ?, ?, ?)";
 
-            PreparedStatement pst = conn.prepareStatement(sql);
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
 
-            pst.setString(1, name);
-            pst.setDouble(2, price);
-            pst.setString(3, category);
-            pst.setInt(4, id);
+            pstmt.setString(1, name);
+            pstmt.setDouble(2, price);
+            pstmt.setString(3, category);
+            pstmt.setString(4, restaurantName != null && !restaurantName.trim().isEmpty() ? restaurantName.trim() : "Jollibee");
 
-            pst.executeUpdate();
+            int rowsInserted = pstmt.executeUpdate();
+            return rowsInserted > 0;
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            System.err.println("Error adding food item: " + e.getMessage());
+            return false;
         }
-
     }
 
-    public void deleteFood(int id) {
 
-        try {
+    public boolean updateFood(int id, String name, double price, String category) {
+        return updateFood(id, name, price, category, "Jollibee");
+    }
 
-            Connection conn = DatabaseConnection.getConnection();
 
-            String sql = "DELETE FROM food_items WHERE id=?";
+    public boolean updateFood(int id, String name, double price, String category, String restaurantName) {
+        return updateFood(new FoodItem(id, name, price, category, restaurantName));
+    }
 
-            PreparedStatement pst = conn.prepareStatement(sql);
 
-            pst.setInt(1, id);
+    public boolean updateFood(FoodItem item) {
+        String query = "UPDATE food_items SET name = ?, price = ?, category = ?, restaurant_name = ? WHERE id = ?";
 
-            pst.executeUpdate();
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            pstmt.setString(1, item.getName());
+            pstmt.setDouble(2, item.getPrice());
+            pstmt.setString(3, item.getCategory());
+            pstmt.setString(4, item.getRestaurantName() != null ? item.getRestaurantName() : "Jollibee");
+            pstmt.setInt(5, item.getId());
+
+            int rowsUpdated = pstmt.executeUpdate();
+            return rowsUpdated > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error updating food item: " + e.getMessage());
+            return false;
         }
-
     }
 
+
+    public boolean deleteFood(int id) {
+        String query = "DELETE FROM food_items WHERE id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setInt(1, id);
+            int rowsDeleted = pstmt.executeUpdate();
+            return rowsDeleted > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error deleting food item: " + e.getMessage());
+            return false;
+        }
+    }
 }

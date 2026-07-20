@@ -1,22 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlinefooddeliverysystem.controller.HomeController">
-   <children>
-      <Label layoutX="31.0" layoutY="21.0" text="Food Delivery System">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Label>
-      <TextField layoutX="31.0" layoutY="81.0" text="Search Restaurants" />
-      <ListView layoutX="31.0" layoutY="119.0" prefHeight="448.0" prefWidth="737.0" />
-      <Button layoutX="588.0" layoutY="56.0" mnemonicParsing="false" onAction="#handleViewMenu" text="View Menu" />
-      <Button layoutX="705.0" layoutY="56.0" mnemonicParsing="false" onAction="#handleLogout" text="Logout" />
-   </children>
-</AnchorPane>
+<BorderPane prefHeight="600.0" prefWidth="800.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlinefooddeliverysystem.controller.HomeController">
+   <top>
+      <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="header-bar" BorderPane.alignment="CENTER">
+         <children>
+            <Label styleClass="header-title" text="Food Delivery System" />
+            <HBox alignment="CENTER_RIGHT" spacing="10.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#handleViewMenu" styleClass="button-secondary" text="View Menu" />
+                  <Button mnemonicParsing="false" onAction="#handleLogout" styleClass="button-danger" text="Logout" />
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <BorderPane BorderPane.alignment="CENTER">
+         <top>
+            <TextField promptText="🔍 Search Restaurants or Cuisine..." BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="15.0" />
+               </BorderPane.margin>
+            </TextField>
+         </top>
+         <center>
+            <ListView fx:id="listRestaurants" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </center>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </BorderPane>
+   </center>
+</BorderPane>

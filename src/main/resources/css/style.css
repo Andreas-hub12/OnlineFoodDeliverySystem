@@ -1,0 +1,106 @@
+
+
+.root {
+    -fx-font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    -fx-background-color: #F7FAFC;
+}
+
+.header-bar {
+    -fx-background-color: #FF5722;
+    -fx-padding: 18px 24px;
+    -fx-alignment: center-left;
+}
+
+.header-title {
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.header-subtitle {
+    -fx-text-fill: #FFE0B2;
+    -fx-font-size: 14px;
+}
+
+
+.card-container {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 12px;
+    -fx-padding: 28px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 10, 0, 0, 4);
+}
+
+
+.text-field, .password-field, .text-area, .choice-box {
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #E2E8F0;
+    -fx-background-color: #FFFFFF;
+    -fx-padding: 10px 14px;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused, .password-field:focused, .text-area:focused {
+    -fx-border-color: #FF5722;
+    -fx-border-width: 1.5px;
+}
+
+
+.button-primary {
+    -fx-background-color: #FF5722;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+}
+
+.button-primary:hover {
+    -fx-background-color: #E64A19;
+}
+
+.button-secondary {
+    -fx-background-color: #EDF2F7;
+    -fx-text-fill: #4A5568;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+}
+
+.button-secondary:hover {
+    -fx-background-color: #E2E8F0;
+}
+
+.button-danger {
+    -fx-background-color: #E53E3E;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+}
+
+.button-danger:hover {
+    -fx-background-color: #C53030;
+}
+
+
+.table-view, .list-view {
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #E2E8F0;
+}
+
+.table-view .column-header {
+    -fx-background-color: #EDF2F7;
+    -fx-font-weight: bold;
+}
+
+.progress-bar .bar {
+    -fx-background-color: #48BB78;
+    -fx-background-radius: 6px;
+}

@@ -1,40 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlinefooddeliverysystem.controller.ReviewController">
-   <children>
-      <Label layoutX="61.0" layoutY="33.0" text="Order Delivered!">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Label>
-      <Text layoutX="61.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thank you for ordering with us!">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Text>
-      <Label layoutX="61.0" layoutY="128.0" text="Order # 0001">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="61.0" layoutY="159.0" text="Restaurant: Jollibee">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <Label layoutX="61.0" layoutY="195.0" text="Rate your Experience" />
-      <ChoiceBox layoutX="61.0" layoutY="218.0" prefWidth="150.0" />
-      <Label layoutX="62.0" layoutY="259.0" text="Leave a Review" />
-      <TextArea layoutX="61.0" layoutY="292.0" prefHeight="218.0" prefWidth="670.0" text="Write your feedback here" />
-      <Button layoutX="89.0" layoutY="530.0" mnemonicParsing="false" onAction="#handleSubmit" text="Submit Review" />
-      <Button layoutX="602.0" layoutY="530.0" mnemonicParsing="false" onAction="#handleHome" text="Back to Home" />
-   </children>
-</AnchorPane>
+<BorderPane prefHeight="600.0" prefWidth="800.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlinefooddeliverysystem.controller.ReviewController">
+   <top>
+      <HBox styleClass="header-bar" BorderPane.alignment="CENTER">
+         <children>
+            <VBox>
+               <children>
+                  <Label styleClass="header-title" text="Order Delivered! 🎉" />
+                  <Label styleClass="header-subtitle" text="Thank you for ordering with us!" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <VBox spacing="15.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox spacing="30.0">
+               <children>
+                  <Label style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #2D3748;" text="Order #0001" />
+               </children>
+            </HBox>
+
+            <VBox spacing="5.0">
+               <children>
+                  <Label style="-fx-font-weight: bold; -fx-text-fill: #4A5568;" text="Rate Your Experience" />
+                  <ChoiceBox fx:id="cmbRating" maxWidth="200.0" />
+               </children>
+            </VBox>
+
+            <VBox spacing="5.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label style="-fx-font-weight: bold; -fx-text-fill: #4A5568;" text="Leave a Review" />
+                  <TextArea fx:id="txtFeedback" promptText="Write your feedback here..." VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER_RIGHT" spacing="15.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" onAction="#handleHome" styleClass="button-secondary" text="Back to Home" />
+            <Button mnemonicParsing="false" onAction="#handleSubmit" styleClass="button-primary" text="Submit Review" />
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+      </HBox>
+   </bottom>
+</BorderPane>

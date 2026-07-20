@@ -1,33 +1,44 @@
 package com.example.onlinefooddeliverysystem.controller;
 
+import com.example.onlinefooddeliverysystem.model.FoodItem;
+import com.example.onlinefooddeliverysystem.util.CartManager;
+import com.example.onlinefooddeliverysystem.util.NavigationManager;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.*;
-import javafx.stage.Stage;
-
-import java.io.IOException;
+import javafx.scene.control.*;
 
 public class CheckoutController {
+    @FXML private ChoiceBox<String> cmbPayment;
+    @FXML private ListView<String> listOrderSummary;
+    @FXML private Label lblTotal;
+    @FXML private TextField txtAddress;
 
     @FXML
-    private void handleConfirmOrder(ActionEvent event) throws IOException {
+    public void initialize() {
+        cmbPayment.setItems(FXCollections.observableArrayList("Cash on Delivery", "GCash", "Credit Card"));
 
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/tracking.fxml"));
-
-        Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-
-        stage.setScene(new Scene(root));
+        for (FoodItem item : CartManager.getCartItems()) {
+            listOrderSummary.getItems().add(item.getName() + " - $" + String.format("%.2f", item.getPrice()));
+        }
+        lblTotal.setText(String.format("Total: $%.2f", CartManager.getTotal()));
     }
 
     @FXML
-    private void handleBack(ActionEvent event) throws IOException {
-
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/cart.fxml"));
-
-        Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-
-        stage.setScene(new Scene(root));
+    private void handleConfirmOrder(ActionEvent event) {
+        if (cmbPayment.getValue() == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Payment Error");
+            alert.setContentText("Please select a payment method.");
+            alert.showAndWait();
+            return;
+        }
+        CartManager.clearCart();
+        NavigationManager.navigateTo(event, "tracking.fxml");
     }
 
+    @FXML
+    private void handleBack(ActionEvent event) {
+        NavigationManager.navigateTo(event, "cart.fxml");
+    }
 }

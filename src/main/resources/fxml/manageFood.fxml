@@ -1,48 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
+<BorderPane prefHeight="650.0" prefWidth="800.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlinefooddeliverysystem.controller.ManageFoodController">
+    <top>
+        <HBox styleClass="header-bar" BorderPane.alignment="CENTER">
+            <children>
+                <Label styleClass="header-title" text="Manage Food Items" />
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <VBox spacing="15.0" BorderPane.alignment="CENTER">
+            <children>
+                <TableView fx:id="tableFood" prefHeight="250.0" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colName" prefWidth="200.0" text="Food Name" />
+                        <TableColumn fx:id="colPrice" prefWidth="120.0" text="Price ($)" />
+                        <TableColumn fx:id="colCategory" prefWidth="200.0" text="Category" />
+                        <TableColumn fx:id="colRestaurant" prefWidth="200.0" text="Restaurant" />
+                    </columns>
+                </TableView>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.onlinefooddeliverysystem.controller.ManageFoodController">
-   <children>
-      <TextField fx:id="txtName" layoutX="152.0" layoutY="390.0" prefHeight="25.0" prefWidth="459.0" promptText="Food Name" />
-      <TextField fx:id="txtCategory" layoutX="152.0" layoutY="466.0" prefHeight="25.0" prefWidth="459.0" promptText="Category" />
-      <TextField fx:id="txtPrice" layoutX="152.0" layoutY="430.0" prefHeight="25.0" prefWidth="459.0" promptText="Price" />
-      <Button layoutX="185.0" layoutY="508.0" mnemonicParsing="false" onAction="#handleAdd" prefHeight="25.0" prefWidth="62.0" text="Add" />
-      <Button layoutX="514.0" layoutY="508.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="25.0" prefWidth="62.0" text="Back" />
-      <Button layoutX="350.0" layoutY="508.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="25.0" prefWidth="62.0" text="Delete" />
-      <Button layoutX="268.0" layoutY="508.0" mnemonicParsing="false" onAction="#handleUpdate" prefHeight="25.0" prefWidth="62.0" text="Update" />
-      <Button layoutX="431.0" layoutY="508.0" mnemonicParsing="false" onAction="#handleRefresh" prefHeight="25.0" prefWidth="62.0" text="Refresh" />
-      <Label layoutX="288.0" layoutY="28.0" text="Manage Food Items">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Label>
-       <TableView fx:id="tableFood" layoutX="61.0" layoutY="78.0"
-                  prefHeight="293.0" prefWidth="677.0">
+                <VBox spacing="10.0" styleClass="card-container">
+                    <children>
+                        <Label style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #2D3748;" text="Item Details" />
+                        <TextField fx:id="txtName" promptText="Food Name" />
+                        <HBox spacing="10.0">
+                            <children>
+                                <TextField fx:id="txtPrice" promptText="Price ($)" HBox.hgrow="ALWAYS" />
+                                <TextField fx:id="txtCategory" promptText="Category" HBox.hgrow="ALWAYS" />
 
-           <columns>
-
-               <TableColumn fx:id="colName"
-                            prefWidth="250.0"
-                            text="Food Name"/>
-
-               <TableColumn fx:id="colPrice"
-                            prefWidth="150.0"
-                            text="Price"/>
-
-               <TableColumn fx:id="colCategory"
-                            prefWidth="250.0"
-                            text="Category"/>
-
-           </columns>
-
-       </TableView>
-   </children>
-</AnchorPane>
+                                <ComboBox fx:id="cmbRestaurant" promptText="Select Restaurant" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#handleAdd" styleClass="button-primary" text="Add" />
+                                <Button mnemonicParsing="false" onAction="#handleUpdate" styleClass="button-secondary" text="Update" />
+                                <Button mnemonicParsing="false" onAction="#handleDelete" styleClass="button-danger" text="Delete" />
+                                <Button mnemonicParsing="false" onAction="#handleRefresh" styleClass="button-secondary" text="Refresh" />
+                            </children>
+                            <VBox.margin>
+                                <Insets top="5.0" />
+                            </VBox.margin>
+                        </HBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                    </padding>
+                </VBox>
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="20.0" right="20.0" top="15.0" />
+            </padding>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" BorderPane.alignment="CENTER">
+            <children>
+                <Button mnemonicParsing="false" onAction="#handleBack" styleClass="button-secondary" text="Back to Admin" />
+            </children>
+            <padding>
+                <Insets bottom="15.0" left="20.0" right="20.0" top="5.0" />
+            </padding>
+        </HBox>
+    </bottom>
+</BorderPane>

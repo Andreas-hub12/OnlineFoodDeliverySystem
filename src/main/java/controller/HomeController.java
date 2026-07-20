@@ -1,33 +1,47 @@
 package com.example.onlinefooddeliverysystem.controller;
 
+import com.example.onlinefooddeliverysystem.dao.FoodDAO;
+import com.example.onlinefooddeliverysystem.session.SessionManager;
+import com.example.onlinefooddeliverysystem.util.AppState;
+import com.example.onlinefooddeliverysystem.util.NavigationManager;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.*;
-import javafx.stage.Stage;
-
-import java.io.IOException;
+import javafx.scene.control.ListView;
 
 public class HomeController {
 
     @FXML
-    private void handleViewMenu(ActionEvent event) throws IOException {
+    private ListView<String> listRestaurants;
 
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/menu.fxml"));
+    private final FoodDAO foodDAO = new FoodDAO();
 
-        Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+    @FXML
+    public void initialize() {
 
-        stage.setScene(new Scene(root));
+        listRestaurants.setItems(FXCollections.observableArrayList(foodDAO.getAllRestaurants()));
+
+
+        listRestaurants.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                AppState.setSelectedRestaurant(newVal);
+
+            }
+        });
     }
 
     @FXML
-    private void handleLogout(ActionEvent event) throws IOException {
-
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
-
-        Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-
-        stage.setScene(new Scene(root));
+    private void handleViewMenu(ActionEvent event) {
+        String selected = listRestaurants.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            AppState.setSelectedRestaurant(selected);
+        }
+        NavigationManager.navigateTo(event, "menu.fxml");
     }
 
+    @FXML
+    private void handleLogout(ActionEvent event) {
+        SessionManager.clearSession();
+        NavigationManager.navigateTo(event, "login.fxml");
+    }
 }
