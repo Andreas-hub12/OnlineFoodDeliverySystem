@@ -1,31 +1,6 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Jul 20, 2026 at 02:43 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `fooddelivery`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `food_items`
---
 
 CREATE TABLE `food_items` (
   `id` int(11) NOT NULL,
@@ -34,10 +9,6 @@ CREATE TABLE `food_items` (
   `category` varchar(50) NOT NULL,
   `restaurant_name` varchar(255) DEFAULT 'Jollibee'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `food_items`
---
 
 INSERT INTO `food_items` (`id`, `name`, `price`, `category`, `restaurant_name`) VALUES
 (1, 'ChickenJoy', 99.00, 'Chicken', 'Jollibee'),
@@ -66,12 +37,6 @@ INSERT INTO `food_items` (`id`, `name`, `price`, `category`, `restaurant_name`) 
 (27, 'Leylam Rice', 90.00, 'Rice Meals', 'Leylam'),
 (28, 'Leylam Noodles', 85.00, 'Noodles', 'Leylam');
 
--- --------------------------------------------------------
-
---
--- Table structure for table `orders`
---
-
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -80,19 +45,9 @@ CREATE TABLE `orders` (
   `total` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `orders`
---
-
 INSERT INTO `orders` (`id`, `user_id`, `food_id`, `quantity`, `total`) VALUES
 (1, 2, 1, 2, 190.00),
 (2, 2, 4, 1, 65.00);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
@@ -101,10 +56,6 @@ CREATE TABLE `users` (
   `role` enum('ADMIN','CUSTOMER') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `users`
---
-
 INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
 (1, 'admin', 'admin123', 'ADMIN'),
 (2, 'customer', 'customer123', 'CUSTOMER'),
@@ -112,48 +63,22 @@ INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
 (4, 'andi', '1234', 'CUSTOMER'),
 (5, 'test2', 'test1', 'CUSTOMER');
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `food_items`
---
 ALTER TABLE `food_items`
   ADD PRIMARY KEY (`id`);
 
---
--- Indexes for table `orders`
---
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_user` (`user_id`),
   ADD KEY `fk_food` (`food_id`);
 
---
--- Indexes for table `users`
---
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username` (`username`);
 
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `food_items`
---
 ALTER TABLE `food_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
---
--- AUTO_INCREMENT for table `users`
---
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+COMMIT;
