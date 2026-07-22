@@ -34,71 +34,81 @@ To maintain user state, the system implements Java Serialization.
 * **Benefit:** This decouples the business logic from specific database implementation details. It allows for easier unit testing of the controllers, as the data layer can be swapped without requiring changes to the user interface code.
 ---
 
+---
+
 ## Design Patterns Implemented
 
-### 1. Creational Pattern - Singleton Pattern
+This project applies three major software design patterns: Creational, Structural, and Behavioral patterns.
 
-**Implementation:** `DatabaseConnection`
+### 1. Creational Design Pattern - Singleton Pattern
 
-The Singleton Pattern is used in the database connection module to ensure that only one instance of the database connection object exists throughout the application.
+**Classes Involved:**
+- `DatabaseConnection`
 
-**Purpose:**
-* Prevents creation of multiple unnecessary database connections.
-* Provides centralized access to the database.
-* Improves resource management.
-
-
-### 2. Structural Pattern - Facade Pattern
-
-**Implementation:** `OrderFacade`
-
-The Facade Pattern simplifies the order placement process by providing a single interface for handling multiple operations such as payment processing and cart clearing.
+**Implementation:**
+The Singleton Pattern is used in the `DatabaseConnection` class to ensure that only one database connection instance is created and shared throughout the application.
 
 **Purpose:**
-* Reduces complexity between different system components.
-* Separates order processing logic from controllers.
-* Provides a cleaner approach for handling checkout operations.
-
-
-### 3. Behavioral Pattern - Strategy Pattern
-
-**Implementation:** `PaymentStrategy`
-
-The Strategy Pattern is used for handling different payment methods. Each payment option implements the same strategy interface:
-
-* `CashPayment`
-* `GCashPayment`
-* `CreditCardPayment`
-
-**Purpose:**
-* Allows payment methods to be changed dynamically.
-* Makes adding new payment methods easier.
-* Avoids modifying existing checkout logic when adding new strategies.
+- Prevents multiple unnecessary database connections.
+- Provides a centralized access point for database operations.
+- Improves resource management.
 
 ---
 
-## UML Diagrams
+### 2. Structural Design Pattern - Facade Pattern
 
-### Use Case Diagram
+**Classes Involved:**
+- `OrderFacade`
 
-![Use Case Diagram](images/usecase.png)
+**Implementation:**
+The Facade Pattern is implemented through the `OrderFacade` class, which provides a simplified interface for placing orders. Instead of the controller handling payment processing, cart clearing, and order operations separately, the facade manages these processes internally.
 
-
-### Class Diagram
-
-![Class Diagram](images/classdiagram.png)
-
-
-### Activity Diagram
-
-![Activity Diagram](images/activitydiagram.png)
-
-
-### Sequence Diagram
-
-![Sequence Diagram](images/sequencediagram.png)
+**Purpose:**
+- Reduces complexity between different system components.
+- Provides a simple interface for complex operations.
+- Improves maintainability.
 
 ---
+
+### 3. Behavioral Design Pattern - Strategy Pattern
+
+**Classes Involved:**
+- `PaymentStrategy`
+- `CashPayment`
+- `GCashPayment`
+- `CreditCardPayment`
+
+**Implementation:**
+The Strategy Pattern allows different payment methods to be selected dynamically during checkout. Each payment method implements the same `PaymentStrategy` interface.
+
+**Purpose:**
+- Allows adding new payment methods without modifying existing checkout logic.
+- Promotes flexibility and code reuse.
+- Separates payment algorithms from the main ordering process.
+
+---
+
+# UML Diagrams
+
+## Use Case Diagram
+
+![Use Case Diagram](UseCase.drawio.png)
+
+## Class Diagram
+
+![Class Diagram](Class.drawio.png)
+
+## Activity Diagram
+
+![Activity Diagram](CustomerActivity.drawio.png)
+
+## Admin Activity Diagram
+
+![Admin Activity Diagram](AdminActivity.drawio.png)
+
+## Sequence Diagram
+
+![Sequence Diagram](Sequence.drawio.png)
 ---
 ## Tech Stack & Environment
 * **Java 21:** Business Logic
