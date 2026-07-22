@@ -32,7 +32,73 @@ To maintain user state, the system implements Java Serialization.
 * **Classes Involved:** `MenuController` and `FoodDAO`.
 * **Application:** High-level modules (Controllers) do not directly manipulate low-level database execution details. Instead, the Controllers rely on `DAO` classes to provide data.
 * **Benefit:** This decouples the business logic from specific database implementation details. It allows for easier unit testing of the controllers, as the data layer can be swapped without requiring changes to the user interface code.
+---
 
+## Design Patterns Implemented
+
+### 1. Creational Pattern - Singleton Pattern
+
+**Implementation:** `DatabaseConnection`
+
+The Singleton Pattern is used in the database connection module to ensure that only one instance of the database connection object exists throughout the application.
+
+**Purpose:**
+* Prevents creation of multiple unnecessary database connections.
+* Provides centralized access to the database.
+* Improves resource management.
+
+
+### 2. Structural Pattern - Facade Pattern
+
+**Implementation:** `OrderFacade`
+
+The Facade Pattern simplifies the order placement process by providing a single interface for handling multiple operations such as payment processing and cart clearing.
+
+**Purpose:**
+* Reduces complexity between different system components.
+* Separates order processing logic from controllers.
+* Provides a cleaner approach for handling checkout operations.
+
+
+### 3. Behavioral Pattern - Strategy Pattern
+
+**Implementation:** `PaymentStrategy`
+
+The Strategy Pattern is used for handling different payment methods. Each payment option implements the same strategy interface:
+
+* `CashPayment`
+* `GCashPayment`
+* `CreditCardPayment`
+
+**Purpose:**
+* Allows payment methods to be changed dynamically.
+* Makes adding new payment methods easier.
+* Avoids modifying existing checkout logic when adding new strategies.
+
+---
+
+## UML Diagrams
+
+### Use Case Diagram
+
+![Use Case Diagram](images/usecase.png)
+
+
+### Class Diagram
+
+![Class Diagram](images/classdiagram.png)
+
+
+### Activity Diagram
+
+![Activity Diagram](images/activitydiagram.png)
+
+
+### Sequence Diagram
+
+![Sequence Diagram](images/sequencediagram.png)
+
+---
 ---
 ## Tech Stack & Environment
 * **Java 21:** Business Logic
