@@ -15,7 +15,7 @@ public class UserDAO {
 
         try {
 
-            Connection conn = DatabaseConnection.getConnection();
+            Connection conn = DatabaseConnection.getInstance().getConnection();
 
             PreparedStatement pst = conn.prepareStatement(sql);
 
@@ -49,7 +49,7 @@ public class UserDAO {
 
         try {
 
-            Connection conn = DatabaseConnection.getConnection();
+            Connection conn = DatabaseConnection.getInstance().getConnection();
 
             PreparedStatement pst = conn.prepareStatement(sql);
 

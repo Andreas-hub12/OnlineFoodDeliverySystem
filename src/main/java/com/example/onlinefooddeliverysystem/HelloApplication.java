@@ -2,11 +2,11 @@ package com.example.onlinefooddeliverysystem;
 
 import com.example.onlinefooddeliverysystem.model.User;
 import com.example.onlinefooddeliverysystem.session.SessionData;
-import com.example.onlinefooddeliverysystem.session.SessionManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import com.example.onlinefooddeliverysystem.session.SessionManager;
 
 import java.io.IOException;
 

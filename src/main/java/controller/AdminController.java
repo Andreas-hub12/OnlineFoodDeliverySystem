@@ -1,9 +1,9 @@
 package com.example.onlinefooddeliverysystem.controller;
 
-import com.example.onlinefooddeliverysystem.session.SessionManager;
 import com.example.onlinefooddeliverysystem.util.NavigationManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import com.example.onlinefooddeliverysystem.session.SessionManager;
 
 public class AdminController {
 

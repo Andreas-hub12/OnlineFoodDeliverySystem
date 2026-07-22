@@ -6,7 +6,7 @@ public class SessionManager {
 
     private static final String FILE_NAME = "session.dat";
 
-    public static void saveSession(com.example.onlinefooddeliverysystem.session.SessionData sessionData) {
+    public static void saveSession(SessionData sessionData) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
             out.writeObject(sessionData);
         } catch (IOException e) {
@@ -25,7 +25,7 @@ public class SessionManager {
     public static void clearSession() {
         File file = new File(FILE_NAME);
         if (file.exists()) {
-            file.delete();
+            System.out.println("Deleted: " + file.delete());
         }
     }
 }

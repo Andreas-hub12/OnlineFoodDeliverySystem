@@ -26,7 +26,7 @@ public class FoodDAO {
 
         String query = "SELECT DISTINCT restaurant_name FROM food_items WHERE restaurant_name IS NOT NULL AND restaurant_name != ''";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
 
@@ -48,7 +48,7 @@ public class FoodDAO {
         List<FoodItem> items = new ArrayList<>();
         String query = "SELECT * FROM food_items WHERE LOWER(restaurant_name) = LOWER(?)";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setString(1, restaurantName);
@@ -76,7 +76,7 @@ public class FoodDAO {
         List<FoodItem> items = new ArrayList<>();
         String query = "SELECT * FROM food_items";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
 
@@ -106,7 +106,7 @@ public class FoodDAO {
     public boolean addFood(String name, double price, String category, String restaurantName) {
         String query = "INSERT INTO food_items (name, price, category, restaurant_name) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setString(1, name);
@@ -137,7 +137,7 @@ public class FoodDAO {
     public boolean updateFood(FoodItem item) {
         String query = "UPDATE food_items SET name = ?, price = ?, category = ?, restaurant_name = ? WHERE id = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setString(1, item.getName());
@@ -159,7 +159,7 @@ public class FoodDAO {
     public boolean deleteFood(int id) {
         String query = "DELETE FROM food_items WHERE id = ?";
 
-        try (Connection conn = DatabaseConnection.getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setInt(1, id);

@@ -7,6 +7,11 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import com.example.onlinefooddeliverysystem.strategy.PaymentStrategy;
+import com.example.onlinefooddeliverysystem.strategy.CashPayment;
+import com.example.onlinefooddeliverysystem.strategy.GCashPayment;
+import com.example.onlinefooddeliverysystem.strategy.CreditCardPayment;
+import com.example.onlinefooddeliverysystem.facade.OrderFacade;
 
 public class CheckoutController {
     @FXML private ChoiceBox<String> cmbPayment;
@@ -26,6 +31,7 @@ public class CheckoutController {
 
     @FXML
     private void handleConfirmOrder(ActionEvent event) {
+
         if (cmbPayment.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Payment Error");
@@ -33,8 +39,31 @@ public class CheckoutController {
             alert.showAndWait();
             return;
         }
-        CartManager.clearCart();
-        NavigationManager.navigateTo(event, "tracking.fxml");
+
+        PaymentStrategy paymentStrategy;
+
+        switch (cmbPayment.getValue()) {
+            case "Cash on Delivery":
+                paymentStrategy = new CashPayment();
+                break;
+
+            case "GCash":
+                paymentStrategy = new GCashPayment();
+                break;
+
+            case "Credit Card":
+                paymentStrategy = new CreditCardPayment();
+                break;
+
+            default:
+                throw new IllegalArgumentException("Invalid payment method");
+        }
+
+        OrderFacade orderFacade = new OrderFacade();
+
+        if (orderFacade.placeOrder(paymentStrategy)) {
+            NavigationManager.navigateTo(event, "tracking.fxml");
+        }
     }
 
     @FXML
